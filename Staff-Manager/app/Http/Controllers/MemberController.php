@@ -88,5 +88,15 @@ class MemberController extends Controller
         $dataMember = $this->memberService->destroy($id);
         return redirect()->back();
     }
+
+    public function getSearch(Request $request)
+    {
+        $data = Member::where('name','like','%'.$request->key.'%')
+            ->orWhere('group',$request->key)
+            ->orWhere('sex',$request->key)
+            ->orWhere('memberCode',$request->key)
+            ->get();
+        return view('search',compact('data'));
+    }
 }
 
